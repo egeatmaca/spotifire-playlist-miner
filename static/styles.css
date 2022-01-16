@@ -1,0 +1,25 @@
+#app {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    text-align : center;
+}
+
+input[type="submit"] {
+    width: 40%;
+    margin-top: 2%;
+    background-color: #9e2c2e;
+    color: #a7c957;
+    font-size: 120%;
+}
+
+body {
+    background-color: #386641;
+    color: #f2e8cf;
+    font-family: Abel;
+    font-size: 130%;
+}
+
+h2 {
+    margin-top: 5%;
+}

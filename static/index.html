@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>spotifire</title>
+        <link rel="stylesheet" type="text/css" href="./static/styles.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+    </head>
+    <body>
+        <div id="app">
+            <h1>SpotiFIRE Playlist Miner</h1>
+            <form action='#' role="form" method="post">
+                <h2>Give keywords to make a playlist:</h2>
+                <input type="text" name="keywords"/><br/>
+                <input type="submit" value="Make playlist!"/>
+            </form>
+            <br/>
+            <h2> {{ playlist_title }} </h2>
+            <ol>
+                {% for song in playlist %}
+                    <li> {{ song }} </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </body>
+</html>
