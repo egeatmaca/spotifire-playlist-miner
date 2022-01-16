@@ -1,0 +1,6 @@
+flask==1.1.2
+numpy==1.21.0
+pandas==1.1.4
+spotify==0.10.2
+asyncio==3.4.3 
+prefixspan==0.5.2
