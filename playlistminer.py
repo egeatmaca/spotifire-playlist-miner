@@ -80,19 +80,21 @@ class PlaylistMiner:
         freq_sequences = freq_sequences.sort_values(['sup', 'first_item']).reset_index(drop=True)
         
         playlist = []
-        ends_with = None
-        idx_to_add = []
-        while len(idx_to_add)>0 or (len(playlist)<20 and freq_sequences.shape[0]>0):
-            if len(idx_to_add)>0:
-                idx_to_add = idx_to_add[0]
-                playlist += list(freq_sequences.loc[idx_to_add, 'seq'])[1:]
+        to_add = []
+        while len(to_add)>0 or (len(playlist)<20 and freq_sequences.shape[0]>0):
+            if len(to_add)>0:
+                to_add = to_add[0]
+                playlist += list(freq_sequences.loc[to_add, 'seq'])[1:]
             else:
-                idx_to_add = freq_sequences.index[0]
-                playlist += list(freq_sequences.loc[idx_to_add, 'seq'])
+                to_add = freq_sequences.index[0]
+                playlist += list(freq_sequences.loc[to_add, 'seq'])
             playlist = pd.Series(playlist).drop_duplicates().tolist()
-            freq_sequences = freq_sequences.drop(index=idx_to_add)
-            ends_with = playlist[-1]
-            idx_to_add = freq_sequences.loc[freq_sequences.seq.apply(lambda seq: seq[0])==ends_with, 'seq'].index
+            freq_sequences = freq_sequences.drop(index=to_add)
+            to_add = []
+            for track in playlist[::-1]:
+                to_add = freq_sequences.loc[freq_sequences.seq.apply(lambda seq: seq[0])==track, 'seq'].index
+                if len(to_add)>0:
+                    break
         self.playlist_encoded = playlist
         return self.playlist_encoded
 
@@ -124,7 +126,7 @@ class PlaylistMiner:
         ).any()
          
 
-def test(keywords='hiphop'):
+def test(keywords='old school hiphop'):
     CLIENT_ID = 'YOUR-SPOTIFY-CLIENT-ID-HERE'
     CLIENT_SECRET = 'YOUR-SPOTIFY-CLIENT-SECRET-HERE'
     
