@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 from playlistminer import PlaylistMiner
+import os
 
 app = Flask(__name__, template_folder='./static')
 
-CLIENT_ID = 'YOUR-SPOTIFY-CLIENT-ID-HERE'
-CLIENT_SECRET = 'YOUR-SPOTIFY-CLIENT-SECRET-HERE'
+CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
+CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -19,5 +20,5 @@ def home():
         return render_template('index.html', playlist_title=playlist_title, playlist=playlist)
     
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
     

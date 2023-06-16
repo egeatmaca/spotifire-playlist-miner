@@ -1,0 +1,9 @@
+services:
+  spotifire:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
